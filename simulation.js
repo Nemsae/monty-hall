@@ -92,7 +92,7 @@ function userSwitches(hostChoice, userChoice) {
 
 //  NOTE: writeToJPGO() writes text to jpg file, "results.jpg"
 function writeToJPG(totalGamesPlayed, switchWins, stayWins, switchWinsPecentage, stayWinsPecentage) {
-  ctx.font = '16px Impact'
+  ctx.font = '22px Impact'
   ctx.fillText('Monty Hall Simulation ', 0, 40);
   ctx.font = '10px Impact'
   ctx.fillText(`Ran on ${new Date}`, 0, 60);
