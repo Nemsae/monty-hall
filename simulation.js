@@ -1,9 +1,14 @@
+var fs = require('fs');
+const { createCanvas } = require('canvas');
+const canvas = createCanvas(300, 300);
+const ctx = canvas.getContext('2d');
+
 //  NOTE: Monty Hall Problem
 //  1. Generate the game set
 //  2. User picks one door
 //  3. Host picks (and "shows") one door
 //  4. User either swithces or stays.
-//  5. Return results
+//  5. Write results to "/results.jpg"
 
 function runMontyHall(games) {
   const totalGamesPlayed = games;
@@ -29,12 +34,11 @@ function runMontyHall(games) {
     games--;
   }
 
-  console.log('runMontyHall totalGamesPlayed: ', totalGamesPlayed);
-  console.log('runMontyHall switchWins: ', switchWins);
-  console.log('runMontyHall stayWins: ', stayWins);
+  const switchWinsPecentage = (switchWins/totalGamesPlayed * 100).toFixed(2);
+  const stayWinsPecentage = (stayWins/totalGamesPlayed * 100).toFixed(2);
 
-  console.log(`switch win percentage: ${switchWins/totalGamesPlayed * 100}%`);
-  console.log(`stay win percentage: ${stayWins/totalGamesPlayed * 100}%`);
+  // 5. Write results to "/results.jpg"
+  writeToJPG(totalGamesPlayed, switchWins, stayWins, switchWinsPecentage, stayWinsPecentage);
 }
 
 //  NOTE: generateGame() creates an Array 'doors', generates the door index that will be the car,
@@ -81,9 +85,26 @@ function hostChooses(doors, carInd, userChoice) {
   }
 }
 
-//  NOTE: User chooses a door which is not the user's original choice, `userChoice`, nor the host's choice, `hostChoice`.
+//  NOTE: userSwitches() chooses a door which is not the user's original choice, `userChoice`, nor the host's choice, `hostChoice`.
 function userSwitches(hostChoice, userChoice) {
   return 3 - (hostChoice + userChoice);
+}
+
+//  NOTE: writeToJPGO() writes text to jpg file, "results.jpg"
+function writeToJPG(totalGamesPlayed, switchWins, stayWins, switchWinsPecentage, stayWinsPecentage) {
+  ctx.font = '16px Impact'
+  ctx.fillText('Monty Hall Simulation ', 0, 40);
+  ctx.font = '10px Impact'
+  ctx.fillText(`Ran on ${new Date}`, 0, 60);
+  ctx.font = '16px Impact'
+  ctx.fillText('Results: ', 0, 100);
+  ctx.font = '12px Impact'
+  ctx.fillText(`Total amount of games played: ${totalGamesPlayed}.`, 0, 120);
+  ctx.fillText(`Total amount of switch wins: ${switchWins}.`, 0, 140);
+  ctx.fillText(`Total amount of stay wins: ${stayWins}.`, 0, 160);
+  ctx.fillText(`Switch win percentage: ${switchWinsPecentage}%.`, 0, 180);
+  ctx.fillText(`Stay win percentage: ${stayWinsPecentage}%.`, 0, 200);
+  fs.writeFile('results.jpg', canvas.toBuffer());
 }
 
 runMontyHall(10000);

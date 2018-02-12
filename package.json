@@ -1,0 +1,19 @@
+{
+  "name": "monty-python-rixi",
+  "description": "Monty Python",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Nemsae/monty-hall.git"
+  },
+  "engines": {
+    "npm": ">=3",
+    "node": ">=5"
+  },
+  "author": "John Son",
+  "license": "MIT",
+  "scripts": {
+    "start": "node simulation.js"
+  },
+  "dependencies": {
+  }
+}
