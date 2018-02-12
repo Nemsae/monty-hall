@@ -15,5 +15,6 @@
     "start": "node simulation.js"
   },
   "dependencies": {
+    "canvas": "^2.0.0-alpha.9"
   }
 }
