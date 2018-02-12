@@ -81,7 +81,7 @@ function hostChooses(doors, carInd, userChoice) {
   }
 }
 
-//  NOTE: User chooses a door which is not the user's original choice, `userChoice`, nor the host's `hostChoice`
+//  NOTE: User chooses a door which is not the user's original choice, `userChoice`, nor the host's choice, `hostChoice`.
 function userSwitches(hostChoice, userChoice) {
   return 3 - (hostChoice + userChoice);
 }
