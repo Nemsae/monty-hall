@@ -7,26 +7,42 @@
 //  4. User either swithces or stays.
 //  5. Record result
 
-let games = 5;
+function runMontyHall(games) {
+  const totalGamesPlayed = games;
+  let switchWins = 0;
+  let stayWins = 0;
 
-while (games > 0) {
-  //  1. Generate the game set
-  const { doors, carInd } = generateGame();
-  console.log(games, 'doors: ', doors);
-  console.log(games, 'carInd: ', carInd);
+  while (games > 0) {
+    //  1. Generate the game set
+    const { doors, carInd } = generateGame();
+    console.log(games, 'doors: ', doors);
+    console.log(games, 'carInd: ', carInd);
 
-  //  2. User picks one door
-  const userChoice = userChooses();
-  console.log(games, 'userChoice: ', userChoice);
+    //  2. User picks one door
+    const userChoice = userChooses();
+    console.log(games, 'userChoice: ', userChoice);
 
-  //  3. Host picks (and shows) one door
-  const hostChoice = hostChooses(doors, carInd, userChoice);
-  console.log(games, 'hostChoice: ', hostChoice);
+    //  3. Host picks (and shows) one door
+    const hostChoice = hostChooses(doors, carInd, userChoice);
+    console.log(games, 'hostChoice: ', hostChoice);
 
-  //  4. User either swithces or stays.
+    //  4. User either switches or stays.
+    //  User SWITCHES
+    const userSwitch = 3 - (hostChoice + userChoice);
+    console.log(games, 'userSwitch: ', userSwitch);
 
+    if (userSwitch === carInd) switchWins++;
+    if (userChoice === carInd) stayWins++;
 
-  games--;
+    games--;
+  }
+
+  console.log('totalGamesPlayed: ', totalGamesPlayed);
+  console.log('switchWins: ', switchWins);
+  console.log('stayWins: ', stayWins);
+
+  console.log('switch win percentage: ', switchWins/totalGamesPlayed * 100, '%');
+  console.log('stay win percentage: ', stayWins/totalGamesPlayed * 100, '%');
 }
 
 //  1. Generate the game set
@@ -84,3 +100,5 @@ function hostChooses(doors, carInd, userChoice) {
     }
   }
 }
+
+runMontyHall(5);
